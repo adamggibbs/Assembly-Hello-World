@@ -15,13 +15,19 @@
         section   .text
 
 _start:
-
         ;; YOUR CODE GOES HERE.
-        ;; Make the program print, one line at a time: 9, 8, 7, ..., 1, 0.
+        ;; Make the program print, one line at a time: 9, 8, 7, ..., 1, 0 
+	mov       rsi, digit_str
+top:    cmp       byte [rsi], "0"         ; see if int is still > 0
+        jl        end                     ; if int <= 9, end loop
+        mov       rax, 1
+        mov       rdi, 1
+        mov       rdx, 2      
+        syscall                           ; print int
+        dec       byte [rsi]              ; decrement int
+        jmp       top
 
-
-	;; This code ends the program.
-        mov       rax, 60                 ; system call for exit
+end:	mov       rax, 60                 ; system call for exit
         xor       rdi, rdi                ; exit code 0
         syscall                           ; invoke operating system to exit
 ; ------------------------------------------------------------------------------
